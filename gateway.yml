@@ -1,46 +1,41 @@
 server:
   port: ${PORT:${SERVER_PORT:8080}}
 
-
 spring:
   application:
     name: gateway
-  cloud:
+  cloud:    
     gateway:
       default-filters: # Filtro por defecto de todas las requests realizadas al gateway
         - name: LogFilter
       discovery:
-        Locator:
+        locator:
           enabled: true
       routes:
-        - id: products
-          uri: lb://productos
+        - id: route_student
+          uri: lb://api-student
           predicates:
-            - Path=/api/v1/productos/**
-        - id: reviews
-          uri: lb://review
+            - Path=/api/v1/students/**
+        - id: route_course
+          uri: lb://api-course
           predicates:
-            - Path=/review/**
-  
-
+            - Path=/api/v1/courses/**
 
 info:
-  application:
-     name: gateway
-    
-eureka:
-  client:
-    registerWithEureka: true
-    fetchRegistry: true
-    serviceUrl:
-      defaultZone: http://localhost:8761/eureka/
+  app:
+    name: ${spring.application.name}
 
+eureka:
+   client:
+      registerWithEureka: false
+      fetchRegistry: true
+      serviceURL:
+         defaultZone: http://localhost:8761/eureka
 management:
-  endpoints:
-    gateway:
-      enablesd: true
-        
-  endpoint:
-    web:
-      expose:
-        include: gateway
+   endpoint:
+      gateway:
+         enabled: true
+   endpoints:
+      web:
+         exposure:
+            include: gateway
