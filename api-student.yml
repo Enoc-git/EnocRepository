@@ -4,12 +4,12 @@ spring:
   application:
     name: api-student
   datasource:
-    driverClassName: com.mysql.cj.jdbc.Driver
+    driverClassName: com.mysql.jdbc.Driver
     url: jdbc:mysql://localhost:3306/digitalhouse
     username: root
     password: Wire2681
   jpa:
-    hibernate.ddl-auto: create
+    hibernate.ddl-auto: update
     generate-ddl: true
     show-sql: true
 
